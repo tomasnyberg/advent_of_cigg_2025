@@ -1,0 +1,9 @@
+let lines = filter ((l) => l != "") words "\n" read_file("in");
+let digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+let result = 0;
+for line in lines {
+  let line_digits = filter ((c) => c in digits) (words "" line);
+  let num = line_digits[0] + line_digits[len(line_digits) - 1];
+  result += int(num);
+}
+print(result);
