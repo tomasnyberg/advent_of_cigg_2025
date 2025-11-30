@@ -4,25 +4,34 @@ let result = 0;
 fn works(amount, color) {
   return (color == "r" and amount <= 12) or (color == "g" and amount <= 13) or (color == "b" and amount <= 14);
 }
+
+let indices = {"r": 0, "g": 1, "b": 2};
+
+let part_two = 0;
+
 for line in lines {
   let line1 = words ": " line;
   let games = words "; " line1[1];
   let possible = 1;
+  let mins = [0, 0, 0];
   for game in games {
     let balls_shown = words ", " game;
     for ball_count in balls_shown {
       let parts = words " " ball_count;
       let amount = int(parts[0]);
       let color = parts[1][0];
+      let prev_min = mins[indices[color]];
+      mins[indices[color]] = amount > prev_min ? amount : prev_min;
       if !works(amount, color) {
         possible = 0;
-        // break;
       }
     }
-    print(balls_shown);
   }
+  print(mins);
   result += possible * idx;
+  part_two += mins[0] * mins[1] * mins[2];
   idx += 1;
 }
 
 print(result);
+print(part_two);
