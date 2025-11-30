@@ -1,9 +1,26 @@
 let lines = filter ((l) => l != "") words "\n" read_file("in");
-let digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-let result = 0;
+let digits = {"0":0, "1":1, "2":2, "3":3, "4":4, "5":5, "6":6, "7":7, "8":8, "9":9};
+let word_numbers = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4, "five":5, "six":6, "seven":7, "eight":8, "nine":9};
+let all_interesting = digits + word_numbers;
+let part_one = 0;
 for line in lines {
   let line_digits = filter ((c) => c in digits) (words "" line);
   let num = line_digits[0] + line_digits[len(line_digits) - 1];
-  result += int(num);
+  part_one += int(num);
 }
-print(result);
+let part_two = 0;
+for line in lines {
+  let seen = [];
+  for i in 0..len(line) {
+    for k in all_interesting {
+        let end = i+len(k) > len(line) ? len(line) : i+len(k);
+        if line[i..end] == k {
+          seen :: all_interesting[k];
+        }
+    }
+  }
+  part_two += int(seen[0] + "" + seen[len(seen) - 1]);
+}
+
+print(part_one);
+print(part_two);
