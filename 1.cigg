@@ -1,0 +1,20 @@
+let lines = filter ((l) => l != "") words "\n" read_file("in");
+
+let dial = 50;
+let part_one = 0;
+let part_two = 0;
+for line in lines {
+  let dir = line[0] == 'L' ? -1 : 1;
+  let num = int(line[1..len(line)]);
+
+  let end = dial + num * dir;
+  let crosses = end >= 0 ? end/_100 : -(( -end + 99)/_100);
+  part_two += abs(crosses);
+  dial = end;
+
+  dial %= 100;
+  dial += dial < 0 ? 100:0;
+  part_one += dial == 0 ? 1 : 0;
+}
+print(part_one);
+print(part_two);
