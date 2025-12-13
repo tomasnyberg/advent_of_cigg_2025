@@ -15,7 +15,6 @@ for rng in nums {
     if s[0..n/_2] == s[n/_2..n] {
       part_one += x;
     }
-    let some_valid = 0;
     for sub_len in 1..(n/_2+1) {
       let valid = 1;
       let first = s[0..sub_len];
@@ -23,11 +22,14 @@ for rng in nums {
         let end = i + sub_len > n ? n: i+sub_len;
         if s[i..end] != first {
           valid = 0;
+          break;
         }
       }
-      some_valid = max([some_valid, valid]);
+      if valid {
+        part_two += x;
+        break;
+      }
     }
-    part_two += some_valid * x;
   }
 }
 print(part_one);
