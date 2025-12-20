@@ -1,0 +1,63 @@
+let file = "in";
+let lines = filter (l => l != "") words "\n" read_file(file);
+let coords = map (l => map int words "," l) lines;
+
+fn dist(a, b) {
+  return (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]) + (a[2] - b[2]) * (a[2] - b[2]);
+}
+
+let distances = [];
+for i in 0..len(coords) {
+  for j in i+1..len(coords) {
+    distances :: [dist(coords[i], coords[j]), i, j];
+  }
+}
+distances = sort distances;
+
+let parents = [0..len(coords)];
+
+fn find(x) {
+  if parents[x] != x {
+    parents[x] = find(parents[x]);
+  }
+  return parents[x];
+}
+
+fn union(a, b) {
+  parents[find(a)] = parents[find(b)];
+}
+
+fn score_part_one(parents) {
+  let grps = {};
+  for i in 0..len(parents) {
+    let p = find(i);
+    if !(p in grps) {
+      grps[p] = [];
+    }
+    grps[p] :: i;
+  }
+
+  let sizes = [];
+  for k in grps {
+    sizes :: len(grps[k]);
+  }
+  return prod((sort sizes)[len(sizes)-3..len(sizes)]);
+}
+
+let remaining = file == "smallin" ? 10 : 1000;
+let unioned = 0;
+for dists in distances {
+  if find(dists[1]) != find(dists[2]) {
+    unioned += 1;
+  }
+  union(dists[1], dists[2]);
+  if unioned == (file == 'in' ? 999 : 19) {
+    print("Part two: " + coords[dists[1]][0] * coords[dists[2]][0]);
+    break;
+  }
+  remaining -= 1;
+  if remaining == 0 {
+    print("Part one: " + score_part_one(parents));
+  }
+}
+
