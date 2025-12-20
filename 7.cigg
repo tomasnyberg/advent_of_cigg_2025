@@ -1,0 +1,35 @@
+let matrix = filter (l => l != "") words "\n" read_file("in");
+
+let idx = (filter (i => matrix[0][i] == 'S') [0..len(matrix[0])])[0];
+matrix[1][idx] = '|';
+
+let part_one = 0;
+for i in 2..len(matrix) {
+  for j in 0..len(matrix[0]) {
+    let beam_above = matrix[i-1][j] == '|';
+    if !beam_above {
+      continue;
+    }
+    if matrix[i][j] == '^' {
+      matrix[i][j-1] = '|';
+      matrix[i][j+1] = '|';
+      part_one += 1;
+      continue;
+    }
+    matrix[i][j] = '|';
+  }
+}
+print("Part one: " + part_one);
+
+let cache = {};
+fn dfs(i, j) {
+  if [i, j] in cache {
+    return cache[[i, j]];
+  }
+  if i == len(matrix) {
+    return 1;
+  }
+  cache[[i, j]] = matrix[i][j] == '^' ? dfs(i, j+1) + dfs(i, j-1) : dfs(i+1, j);
+  return cache[[i, j]];
+}
+print("Part two: " + dfs(1, idx));
