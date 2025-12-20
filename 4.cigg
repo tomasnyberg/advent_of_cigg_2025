@@ -1,0 +1,45 @@
+let grid = filter ((l) => l != "") words "\n" read_file("smallin");
+
+fn contains_roll(i, j) {
+  if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) {
+    return 0;
+  }
+  return grid[i][j] == '@' ? 1:0;
+}
+
+fn remove_rolls(to_remove) {
+  for pair in to_remove {
+    grid[pair[0]][pair[1]] = '.';
+  }
+}
+
+let result = 0;
+while true {
+  let to_remove = [];
+  for i in 0..len(grid) {
+    for j in 0..len(grid[0]) {
+      if grid[i][j] == '.' {
+        continue;
+      }
+      let count = 0;
+      for di in -1..2 {
+        for dj in -1..2 {
+          count += contains_roll(i+di, j+dj);
+        }
+      }
+      if count < 5 {
+        to_remove :: [i, j];
+      }
+    }
+  }
+  if len(to_remove) == 0 {
+    break;
+  }
+  if result == 0 {
+    print("Part one:" + len(to_remove));
+  }
+  remove_rolls(to_remove);
+  result += len(to_remove);
+}
+print("Part two:" + result);
+
