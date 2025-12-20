@@ -1,0 +1,23 @@
+let parts = filter ((l) => l != "") words "\n\n" read_file("in");
+let ranges = sort map ((range) => map int words "-" range) words "\n" parts[0];
+let nums = map int filter ((l) => l != "") words "\n" parts[1];
+
+print("Part one: " + len(filter ((x) => len(filter ((rng) => rng[0] <= x and x <= rng[1]) ranges) > 0) nums));
+
+let remove = {};
+let i = 0;
+let j = 1;
+while i < len(ranges) {
+  let rng = ranges[i];
+  while j < len(ranges) and ranges[j][0] <= rng[1] {
+    remove[j] = true;
+    rng[1] = max([ranges[j][1], rng[1]]);
+    j += 1;
+  }
+  i = j;
+  j += 1;
+}
+
+ranges = map ((i) => ranges[i]) (filter ((i) => !(i in remove)) [0..len(ranges)]);
+print("Part two: " + sum(map ((rng) => rng[1] - rng[0] + 1) ranges));
+
