@@ -1,8 +1,8 @@
-let parts = filter ((l) => l != "") words "\n\n" read_file("in");
-let ranges = sort map ((range) => map int words "-" range) words "\n" parts[0];
-let nums = map int filter ((l) => l != "") words "\n" parts[1];
+let parts = filter (l => l != "") words "\n\n" read_file("in");
+let ranges = sort map (range => map int words "-" range) words "\n" parts[0];
+let nums = map int filter (l => l != "") words "\n" parts[1];
 
-print("Part one: " + len(filter ((x) => len(filter ((rng) => rng[0] <= x and x <= rng[1]) ranges) > 0) nums));
+print("Part one: " + len(filter (x => len(filter (rng => rng[0] <= x and x <= rng[1]) ranges) > 0) nums));
 
 let remove = {};
 let i = 0;
@@ -18,6 +18,6 @@ while i < len(ranges) {
   j += 1;
 }
 
-ranges = map ((i) => ranges[i]) (filter ((i) => !(i in remove)) [0..len(ranges)]);
-print("Part two: " + sum(map ((rng) => rng[1] - rng[0] + 1) ranges));
+ranges = map (i => ranges[i]) (filter (i => !(i in remove)) [0..len(ranges)]);
+print("Part two: " + sum(map (rng => rng[1] - rng[0] + 1) ranges));
 

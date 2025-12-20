@@ -1,4 +1,4 @@
-let grid = filter ((l) => l != "") words "\n" read_file("smallin");
+let grid = filter (l => l != "") words "\n" read_file("smallin");
 
 fn contains_roll(i, j) {
   if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) {

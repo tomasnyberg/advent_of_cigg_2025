@@ -1,25 +1,25 @@
-let lines = filter ((l) => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("in");
 
 fn to_nums(line) {
-  return map int filter ((l) => l != "") map trim words " " line;
+  return map int filter (l => l != "") map trim words " " line;
 }
 
 let lines_as_nums = map to_nums lines[0..len(lines) - 1];
-let ops = filter ((l) => l != "") map trim words " " lines[len(lines) - 1];
+let ops = filter (l => l != "") map trim words " " lines[len(lines) - 1];
 
 let part_one = 0;
 for i in 0..len(lines_as_nums[0]) {
-  let nums = map ((idx) => lines_as_nums[idx][i]) [0..len(lines_as_nums)];
+  let nums = map (idx => lines_as_nums[idx][i]) [0..len(lines_as_nums)];
   part_one += ops[i] == '+' ? sum(nums) : prod(nums);
 }
 print("Part one: " + part_one);
 
 let matrices = [];
-let matrix = map ((i) => []) [0..len(lines)];
+let matrix = map (i => []) [0..len(lines)];
 for c in 0..len(lines[0]) {
-  if (filter ((c) => c != ' ') map ((i) => lines[i][c]) [0..len(lines)]) == [] {
+  if (filter (c => c != ' ') map (i => lines[i][c]) [0..len(lines)]) == [] {
     matrices :: matrix;
-    matrix = map ((i) => []) [0..len(lines)];
+    matrix = map (i => []) [0..len(lines)];
     continue;
   }
   for i in 0..len(lines) {

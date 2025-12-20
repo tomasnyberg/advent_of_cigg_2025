@@ -1,4 +1,4 @@
-let lines = filter ((l) => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("in");
 
 let dial = 50;
 let part_one = 0;
