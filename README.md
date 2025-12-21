@@ -5,7 +5,7 @@ This year, I decided I was going to absolutely smoke the competition. 🚬🚬
 ## Background
 
 [Cigg](https://github.com/tomasnyberg/tomaslang) is a language that I wrote from scratch.
-In order to prove that it actually works (and isn't just a prototype) I decided to solve all of this year's Advent of Code problems using it.
+In order to prove that it actually works, I decided to solve all of this year's Advent of Code problems using it.
 It is not the fastest language, and it obviously doesn't have luxuries such as an LSP or a debugger.
 But it does have some fairly neat and concise syntax, allowing me to for instance parse the ranges on day 5 as follows:
 
