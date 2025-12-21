@@ -1,0 +1,130 @@
+let file = "in";
+let lines = filter (l => l != "") words "\n" read_file(file);
+
+let points = map (line => map int words "," line) lines;
+points = map (t => [t[1], t[0]]) points;
+
+fn get_area(p1, p2) {
+    let side = abs(p1[0] - p2[0]) + 1;
+    let height = abs(p1[1] - p2[1]) + 1;
+    return side*height;
+}
+
+let result = 0;
+for i in 0..len(points) {
+  for j in i+1..len(points) {
+    result = max([result, get_area(points[i], points[j])]);
+  }
+}
+print(result);
+
+let x_values = sort unique map (tuple => tuple[0]) points;
+let y_values = sort unique map (tuple => tuple[1]) points;
+
+let i_to_x = {};
+let x_to_i = {};
+for i in 0..len(x_values) {
+  i_to_x[i] = x_values[i];
+  x_to_i[x_values[i]] = i;
+}
+
+let i_to_y = {};
+let y_to_i = {};
+for i in 0..len(y_values) {
+  i_to_y[i] = y_values[i];
+  y_to_i[y_values[i]] = i;
+}
+
+let small_points = map (p => [x_to_i[p[0]], y_to_i[p[1]]]) points;
+
+fn cumsum2d(arr) {
+    let rows = len(arr);
+    let cols = len(arr[0]);
+    let result = map ((x) => map ((y) => 0) [0..cols]) arr;
+    for i in 0..rows {
+        let sum = 0;
+        for j in 0..cols {
+            sum += arr[i][j];
+            let above = i > 0 ? result[i - 1][j] : 0;
+            result[i][j] = sum + above;
+        }
+    }
+    return result;
+}
+
+fn query(cs2d, a, b, A, B) {
+    let result = 0;
+    result += cs2d[A][B];
+    result += (a - 1 >= 0 and b - 1 >= 0) ? cs2d[a - 1][b - 1] : 0;
+    result -= (a - 1 >= 0) ? cs2d[a - 1][B] : 0;
+    result -= (b - 1 >= 0) ? cs2d[A][b - 1] : 0;
+    return result;
+}
+
+let size = file == "smallin" ? 15 : 250;
+let matrix = map (r => map ((c) => 0) [0..size]) [0..size];
+
+fn fill_in(fr, to) {
+  if fr[0] == to[0] {
+    for c in min([fr[1], to[1]])..max([fr[1], to[1]])+1 {
+      matrix[fr[0]][c] = 1;
+    }
+  }
+  if fr[1] == to[1] {
+    for c in min([fr[0], to[0]])..max([fr[0], to[0]])+1 {
+      matrix[c][fr[1]] = 1;
+    }
+  }
+}
+let points_used = small_points;
+
+for idx in 1..len(points_used) {
+  let fr = points_used[idx-1];
+  let to = points_used[idx];
+  fill_in(fr, to);
+}
+fill_in(points_used[0], points_used[len(points_used) - 1]);
+
+let dirs = [[1,0], [0, 1], [-1, 0], [0, -1]];
+fn dfs(i, j) {
+  if matrix[i][j] == 1 {
+    return;
+  }
+  matrix[i][j] = 1;
+  for d in dirs {
+    let oi = i + d[0];
+    let oj = j + d[1];
+    dfs(oi, oj);
+  }
+}
+// HACK: just start the dfs in the hole;
+file == 'smallin' ? dfs(1, 2) : dfs(100, 100);
+let cs2d = cumsum2d(matrix);
+
+fn satisfied(p1, p2) {
+  let area = get_area(p1, p2);
+  let a = min([p1[0], p2[0]]);
+  let b = min([p1[1], p2[1]]);
+  let A = max([p1[0], p2[0]]);
+  let B = max([p1[1], p2[1]]);
+  let q = query(cs2d, a, b, A, B);
+  return q == area;
+}
+
+fn map_point(p) {
+  return [i_to_x[p[0]], i_to_y[p[1]]];
+}
+
+let part_two = 0;
+for i in 0..len(points_used) {
+  for j in i+1..len(points_used) {
+    if !satisfied(points_used[i], points_used[j]) {
+      continue;
+    }
+    let real_point_a = map_point(points_used[i]);
+    let real_point_b = map_point(points_used[j]);
+    part_two = max([part_two, get_area(real_point_a, real_point_b)]);
+  }
+}
+print(part_two);
+
