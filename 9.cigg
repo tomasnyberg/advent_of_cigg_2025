@@ -1,4 +1,4 @@
-let file = "in";
+let file = "inputs/day9.in";
 let lines = filter (l => l != "") words "\n" read_file(file);
 
 let points = map (line => map int words "," line) lines;
@@ -61,7 +61,8 @@ fn query(cs2d, a, b, A, B) {
     return result;
 }
 
-let size = file == "smallin" ? 15 : 250;
+let is_small = file == "smallin";
+let size = is_small ? 15 : 250;
 let matrix = map (r => map ((c) => 0) [0..size]) [0..size];
 
 fn fill_in(fr, to) {
@@ -127,4 +128,3 @@ for i in 0..len(points_used) {
   }
 }
 print(part_two);
-

@@ -1,4 +1,4 @@
-let matrix = filter (l => l != "") words "\n" read_file("in");
+let matrix = filter (l => l != "") words "\n" read_file("inputs/day7.in");
 
 let idx = (filter (i => matrix[0][i] == 'S') [0..len(matrix[0])])[0];
 matrix[1][idx] = '|';

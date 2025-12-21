@@ -1,4 +1,4 @@
-let double_newline = filter (l => l != "") words "\n\n" read_file("in");
+let double_newline = filter (l => l != "") words "\n\n" read_file("inputs/day12.in");
 let interesting_lines = filter (l => l != "") words "\n" double_newline[6..len(double_newline)][0];
 
 let result = 0;

@@ -1,4 +1,4 @@
-let lines = filter (l => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("inputs/day6.in");
 
 fn to_nums(line) {
   return map int filter (l => l != "") map trim words " " line;

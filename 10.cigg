@@ -1,4 +1,4 @@
-let lines = filter (l => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("inputs/day10.in");
 let lines_in_parts = map (line => words " " line) lines;
 
 fn bfs(target_state, flips) {

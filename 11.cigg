@@ -1,4 +1,4 @@
-let lines = filter (l => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("inputs/day11.in");
 
 let from_to = map (t => [t[0], words t[1]]) map (line => words ": " line) lines;
 let adj = {};

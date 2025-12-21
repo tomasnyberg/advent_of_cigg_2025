@@ -1,4 +1,4 @@
-let lines = filter (l => l != "") words "\n" read_file("in");
+let lines = filter (l => l != "") words "\n" read_file("inputs/day3.in");
 
 fn find_max_with_after(nums, start, after) {
   if (after == 0) {
