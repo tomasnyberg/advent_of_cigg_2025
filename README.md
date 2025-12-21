@@ -16,7 +16,7 @@ let ranges = sort map (range => map int words "-" range) words "\n" parts[0];
 ```
 
 ## Language bugs
-Solving AoC in a language that you yourself wrote is actually **twice** as fun as doing it in a normal language.
+Solving AoC in a language that wrote yourself is actually **twice** as fun as doing it in a normal language.
 Now, if you encounter a bug while solving a problem, the bug could actually be in the language, not your code!
 
 Some fun ones I encountered:
