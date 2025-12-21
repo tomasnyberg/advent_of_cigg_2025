@@ -1,0 +1,119 @@
+let lines = filter (l => l != "") words "\n" read_file("in");
+let lines_in_parts = map (line => words " " line) lines;
+
+fn bfs(target_state, flips) {
+  let visited = {};
+  let queue = [[0]*len(target_state)];
+  let level = 0;
+  while queue {
+    let new_items = [];
+    for item in queue {
+      if item == target_state {
+        return level;
+      }
+      if item in visited {
+        continue;
+      }
+      visited[item] = true;
+      for flip in flips {
+        let new_state = map (x => x) item;
+        for idx in flip {
+          new_state[idx] = 1 - new_state[idx];
+        }
+        new_items :: new_state;
+      }
+    }
+    queue = new_items;
+    level += 1;
+  }
+  return level;
+}
+
+fn build_pressed(count) {
+  let combos = [[]];
+  for i in 0..count {
+    let next = [];
+    for combo in combos {
+      let with_zero = map (x => x) combo;
+      with_zero :: 0;
+      next :: with_zero;
+      let with_one = map (x => x) combo;
+      with_one :: 1;
+      next :: with_one;
+    }
+    combos = next;
+  }
+  return combos;
+}
+
+fn build_ops_patterns(buttons, jolts_len) {
+  let ops = {};
+  let patterns = {};
+  let pressed_combos = build_pressed(len(buttons));
+  for pressed in pressed_combos {
+    let jolt = [0] * jolts_len;
+    for i in 0..len(pressed) {
+      if pressed[i] == 0 {
+        continue;
+      }
+      for j in buttons[i] {
+        jolt[j] += pressed[i];
+      }
+    }
+    let lights = map (x => x % 2) jolt;
+    ops[pressed] = jolt;
+    if !(lights in patterns) {
+      patterns[lights] = [];
+    }
+    patterns[lights] :: pressed;
+  }
+  return [ops, patterns];
+}
+
+fn presses_inner(target, patterns, ops, cache) {
+  if target in cache {
+    return cache[target];
+  }
+  if target == [0]*len(target) {
+    return 0;
+  }
+  if filter (x => x < 0) target {
+    return 1000000000;
+  }
+
+  let lights = map (x => x % 2) target;
+  if !(lights in patterns) {
+    cache[target] = 1000000000;
+    return cache[target];
+  }
+  let best = 1000000000;
+  for pressed in patterns[lights] {
+    let diff = ops[pressed];
+    let new_target = map (i => (target[i] - diff[i]) /_2) [0..len(target)];
+    best = min([best, sum(pressed) + 2 * presses_inner(new_target, patterns, ops, cache)]);
+  }
+  cache[target] = best;
+  return best;
+}
+
+let problems = [];
+for line in lines_in_parts {
+  let lights = map (c => c == '.' ? 0 : 1) filter (c => c != "") words "" line[0][1..len(line[0])-1];
+  let flips = map (s => map int words "," s) map (p => p[1..len(p) - 1]) line[1..len(line) - 1];
+  let joltages = map int words "," line[len(line) - 1][1..len(line[len(line) - 1]) - 1];
+  let built = build_ops_patterns(flips, len(joltages));
+  problems :: [lights, flips, joltages, built];
+}
+
+let part_one = 0;
+for problem in problems {
+  part_one += bfs(problem[0], problem[1]);
+}
+print("Part one: " + part_one);
+
+let part_two = 0;
+for problem in problems {
+  let built = problem[3];
+  part_two += presses_inner(problem[2], built[1], built[0], {});
+}
+print("Part two: " + part_two);
