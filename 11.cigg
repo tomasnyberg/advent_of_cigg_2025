@@ -1,0 +1,25 @@
+let lines = filter (l => l != "") words "\n" read_file("in");
+
+let from_to = map (t => [t[0], words t[1]]) map (line => words ": " line) lines;
+let adj = {};
+for entry in from_to {
+  adj[entry[0]] = entry[1];
+}
+
+let cache = {};
+fn dfs_visiting_both(node, fft_visited, dac_visited) {
+  if node == 'out' {
+    return 1 * fft_visited * dac_visited;
+  }
+  fft_visited = node == 'fft' ? 1 : fft_visited;
+  dac_visited = node == 'dac' ? 1 : dac_visited;
+  let key = [node, fft_visited, dac_visited];
+  if key in cache {
+    return cache[key];
+  }
+  cache[key] = sum(map (nbr => dfs_visiting_both(nbr, fft_visited, dac_visited)) adj[node]);
+  return cache[key];
+}
+
+print("Part one: " + dfs_visiting_both("you", 1, 1));
+print("Part two: " + dfs_visiting_both("svr", 0, 0));
