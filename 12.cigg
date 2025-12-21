@@ -1,4 +1,4 @@
-let double_newline = filter (l => l != "") words "\n\n" read_file("in");
+let double_newline = filter (l => l != "") words "\n\n" read_file("inputs/day12.in");
 let interesting_lines = filter (l => l != "") words "\n" double_newline[6..len(double_newline)][0];
 
 let result = 0;
@@ -9,5 +9,5 @@ for line in interesting_lines {
   // Hack: just consider each of the pieces to be 3x3 solid blocks
   result += dimensions[0] * dimensions[1] >= total_count * 9 ? 1 : 0;
 }
-print(result);
+print("Part one: " + result);
 

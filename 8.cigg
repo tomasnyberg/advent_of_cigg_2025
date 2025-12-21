@@ -1,4 +1,4 @@
-let file = "in";
+let file = "inputs/day8.in";
 let lines = filter (l => l != "") words "\n" read_file(file);
 let coords = map (l => map int words "," l) lines;
 
@@ -44,14 +44,15 @@ fn score_part_one(parents) {
   return prod((sort sizes)[len(sizes)-3..len(sizes)]);
 }
 
-let remaining = file == "smallin" ? 10 : 1000;
+let is_small = file == "smallin";
+let remaining = is_small ? 10 : 1000;
 let unioned = 0;
 for dists in distances {
   if find(dists[1]) != find(dists[2]) {
     unioned += 1;
   }
   union(dists[1], dists[2]);
-  if unioned == (file == 'in' ? 999 : 19) {
+  if unioned == (is_small ? 19 : 999) {
     print("Part two: " + coords[dists[1]][0] * coords[dists[2]][0]);
     break;
   }
@@ -60,4 +61,3 @@ for dists in distances {
     print("Part one: " + score_part_one(parents));
   }
 }
-

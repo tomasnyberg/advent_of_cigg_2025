@@ -1,4 +1,4 @@
-let grid = filter (l => l != "") words "\n" read_file("smallin");
+let grid = filter (l => l != "") words "\n" read_file("inputs/day4.in");
 
 fn contains_roll(i, j) {
   if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[0]) {
@@ -36,10 +36,10 @@ while true {
     break;
   }
   if result == 0 {
-    print("Part one:" + len(to_remove));
+    print("Part one: " + len(to_remove));
   }
   remove_rolls(to_remove);
   result += len(to_remove);
 }
-print("Part two:" + result);
+print("Part two: " + result);
 

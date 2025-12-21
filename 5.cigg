@@ -1,4 +1,4 @@
-let parts = filter (l => l != "") words "\n\n" read_file("in");
+let parts = filter (l => l != "") words "\n\n" read_file("inputs/day5.in");
 let ranges = sort map (range => map int words "-" range) words "\n" parts[0];
 let nums = map int filter (l => l != "") words "\n" parts[1];
 
