@@ -20,5 +20,6 @@ Now, if you encounter a bug while solving a problem, the bug could actually be i
 Some fun ones I encountered:
 
 - Day 2: [I used i64 for my ranges, right?](https://github.com/tomasnyberg/tomaslang/commit/6c5e326727b561a655b2fc9fde21acee90a5849a)
-- Day 2: [A break statement is a simple construct. Surely I didn't forget to clean up the stack](https://github.com/tomasnyberg/tomaslang/commit/d51545261e2cc83614f3381f8c947fd499862eb8)
+- Day 2: [Break statements are simple. Surely I didn't forget to clean up the stack.](https://github.com/tomasnyberg/tomaslang/commit/d51545261e2cc83614f3381f8c947fd499862eb8)
+- Day 3: [Corporate wants you to find the difference between these two pictures (stack frames and lexical scopes)](https://github.com/tomasnyberg/tomaslang/commit/96bfc1bfece68e8a0b4f75bf254e26bcaed1fa7d)
 
