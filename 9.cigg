@@ -16,7 +16,7 @@ for i in 0..len(points) {
     result = max([result, get_area(points[i], points[j])]);
   }
 }
-print(result);
+print("Part one: " + result);
 
 let x_values = sort unique map (tuple => tuple[0]) points;
 let y_values = sort unique map (tuple => tuple[1]) points;
@@ -127,4 +127,5 @@ for i in 0..len(points_used) {
     part_two = max([part_two, get_area(real_point_a, real_point_b)]);
   }
 }
-print(part_two);
+print("Part two: " + part_two);
+

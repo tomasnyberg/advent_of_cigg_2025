@@ -36,10 +36,10 @@ while true {
     break;
   }
   if result == 0 {
-    print("Part one:" + len(to_remove));
+    print("Part one: " + len(to_remove));
   }
   remove_rolls(to_remove);
   result += len(to_remove);
 }
-print("Part two:" + result);
+print("Part two: " + result);
 

@@ -32,5 +32,6 @@ for rng in nums {
     }
   }
 }
-print(part_one);
-print(part_two);
+print("Part one: " + part_one);
+print("Part two: " + part_two);
+

@@ -22,6 +22,6 @@ fn find_max(line, after) {
   return int(num);
 }
 
-print(sum(map (line => find_max(line, 1)) lines));
-print(sum(map (line => find_max(line, 11)) lines));
+print("Part one: " + sum(map (line => find_max(line, 1)) lines));
+print("Part two: " + sum(map (line => find_max(line, 11)) lines));
 

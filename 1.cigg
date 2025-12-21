@@ -16,5 +16,6 @@ for line in lines {
   dial += dial < 0 ? 100:0;
   part_one += dial == 0 ? 1 : 0;
 }
-print(part_one);
-print(part_two);
+print("Part one: " + part_one);
+print("Part two: " + part_two);
+

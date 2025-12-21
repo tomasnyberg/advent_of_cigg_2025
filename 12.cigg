@@ -9,5 +9,5 @@ for line in interesting_lines {
   // Hack: just consider each of the pieces to be 3x3 solid blocks
   result += dimensions[0] * dimensions[1] >= total_count * 9 ? 1 : 0;
 }
-print(result);
+print("Part one: " + result);
 
