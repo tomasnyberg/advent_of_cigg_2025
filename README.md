@@ -22,4 +22,5 @@ Some fun ones I encountered:
 - Day 2: [I used i64 for my ranges, right?](https://github.com/tomasnyberg/tomaslang/commit/6c5e326727b561a655b2fc9fde21acee90a5849a)
 - Day 2: [Break statements are simple. Surely I didn't forget to clean up the stack.](https://github.com/tomasnyberg/tomaslang/commit/d51545261e2cc83614f3381f8c947fd499862eb8)
 - Day 3: [Call frames and lexical scopes are not the same thing. I knew that.](https://github.com/tomasnyberg/tomaslang/commit/96bfc1bfece68e8a0b4f75bf254e26bcaed1fa7d)
+- Day 6: [Why is my brand new empty string not empty?](https://github.com/tomasnyberg/tomaslang/commit/67831505439849c75bc4562e204105f865ab619f)
 
